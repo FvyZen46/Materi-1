@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materi 1 - Ilmu Pengetahuan Umum Bahasa Pemrograman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Fira+Code:wght@400;500&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050816;--c1:#00f5c8;--c2:#7a5cff;--c3:#ff4fa3;--tx:#e6ecff;--mu:#9aa6cf;--gl:rgba(14,20,46,.62);--bd:rgba(122,92,255,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:'Outfit',system-ui,sans-serif;line-height:1.65}
+#rain{position:fixed;inset:0;z-index:0;opacity:.28}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;filter:blur(70px);opacity:.75}
+.aurora i{position:absolute;width:60vmax;height:32vmax;border-radius:50%;mix-blend-mode:screen}
+.aurora i:nth-child(1){background:radial-gradient(var(--c1),transparent 65%);top:-12%;left:-10%;animation:a1 16s ease-in-out infinite alternate}
+.aurora i:nth-child(2){background:radial-gradient(var(--c2),transparent 65%);top:5%;right:-15%;animation:a2 20s ease-in-out infinite alternate}
+.aurora i:nth-child(3){background:radial-gradient(var(--c3),transparent 65%);bottom:-15%;left:20%;animation:a3 24s ease-in-out infinite alternate;opacity:.6}
+@keyframes a1{to{transform:translate(25vw,14vh) rotate(25deg) scale(1.2)}}
+@keyframes a2{to{transform:translate(-30vw,18vh) rotate(-20deg) scale(.9)}}
+@keyframes a3{to{transform:translate(20vw,-16vh) rotate(15deg) scale(1.15)}}
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px 20px;background:linear-gradient(var(--bg),transparent)}
+.logo{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font:800 19px 'Orbitron',sans-serif;color:#041018;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 22px rgba(0,245,200,.55);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 36px rgba(122,92,255,.8)}}
+.brand{font:500 13px 'Fira Code',monospace;color:var(--mu)}
+.brand b{color:var(--c1);font-weight:500}
+main{position:fixed;inset:0;z-index:5}
+.page{position:absolute;inset:0;padding:88px 20px 96px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateX(70px) scale(.97);filter:blur(8px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),filter .7s,visibility 0s .7s}
+.page.before{transform:translateX(-70px) scale(.97)}
+.page.active{opacity:1;visibility:visible;transform:none;filter:none;transition-delay:0s}
+.card{max-width:860px;margin:0 auto;padding:clamp(20px,4vw,40px);background:var(--gl);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(14px);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.page.active .rv{animation:up .8s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--i)*.09s + .15s)}
+@keyframes up{from{opacity:0;transform:translateY(26px)}}
+h1,h2{font-family:'Orbitron',sans-serif;line-height:1.2;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c1));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 7s linear infinite}
+@keyframes flow{to{background-position:250% 0}}
+h1{font-size:clamp(26px,5.5vw,46px);margin-bottom:14px}
+h2{font-size:clamp(21px,4vw,31px);margin-bottom:16px}
+h3{font:600 18px 'Outfit';color:var(--c1);margin:20px 0 6px}
+p,li{color:#cfd8ff;font-size:16px}
+ul{padding-left:20px}li{margin:4px 0}
+code{font-family:'Fira Code',monospace;color:var(--c1);font-size:.92em}
+pre{margin:10px 0;padding:14px 16px;background:rgba(2,5,18,.8);border:1px solid rgba(0,245,200,.25);border-radius:12px;overflow-x:auto;font:400 13px/1.6 'Fira Code',monospace;color:#bfeee4}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px}
+.box{padding:16px;border:1px solid var(--bd);border-radius:14px;background:rgba(122,92,255,.08);transition:transform .35s,border-color .35s,box-shadow .35s}
+.box:hover{transform:translateY(-5px);border-color:var(--c1);box-shadow:0 10px 30px rgba(0,245,200,.15)}
+.box h3{margin-top:0}
+.tag{font:500 13px 'Fira Code',monospace;color:var(--c3);margin-bottom:10px;min-height:20px}
+.cur::after{content:"▍";animation:blink 1s steps(1) infinite;color:var(--c1)}
+@keyframes blink{50%{opacity:0}}
+.riddle{margin:20px 0 14px;padding:16px;border-left:3px solid var(--c3);background:rgba(255,79,163,.08);border-radius:0 12px 12px 0}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+input{flex:1;min-width:180px;padding:13px 16px;border-radius:12px;border:1px solid var(--bd);background:rgba(2,5,18,.8);color:var(--tx);font:500 16px 'Fira Code',monospace;outline:none;transition:border-color .3s,box-shadow .3s}
+input:focus{border-color:var(--c1);box-shadow:0 0 0 3px rgba(0,245,200,.2)}
+.btn{position:relative;overflow:hidden;padding:12px 24px;border:0;border-radius:12px;cursor:pointer;font:600 15px 'Outfit';color:#041018;background:linear-gradient(135deg,var(--c1),var(--c2));transition:transform .25s,box-shadow .25s,opacity .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,245,200,.4)}
+.btn:active{transform:scale(.95)}
+.btn:disabled{opacity:.3;pointer-events:none}
+.btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:rp .6s ease-out forwards;pointer-events:none}
+@keyframes rp{to{transform:scale(4);opacity:0}}
+#msg{margin-top:12px;min-height:24px;font:500 14px 'Fira Code',monospace}
+.ok{color:var(--c1)}.bad{color:var(--c3)}
+.shake{animation:sh .45s}
+@keyframes sh{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:20;display:flex;justify-content:center;align-items:center;gap:14px;padding:14px;background:linear-gradient(transparent,var(--bg) 60%)}
+.dots{display:flex;gap:8px}
+.dots b{width:9px;height:9px;border-radius:9px;background:#3a4272;cursor:pointer;transition:all .4s}
+.dots b.on{width:28px;background:linear-gradient(90deg,var(--c1),var(--c3))}
+.contact{display:grid;gap:10px;margin-top:16px}
+.contact div{padding:12px 16px;border:1px solid var(--bd);border-radius:12px;font:500 15px 'Fira Code',monospace;background:rgba(0,245,200,.06)}
+.center{text-align:center}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<canvas id="rain"></canvas>
+<div class="aurora"><i></i><i></i><i></i></div>
+<header><div class="logo">FZ</div><div class="brand">&lt;<b>Dev</b>: FZ /&gt;</div></header>
+
+<main>
+<!-- 1 -->
+<section class="page active"><div class="card">
+<div class="tag rv" style="--i:0" id="typed"></div>
+<h1 class="rv" style="--i:1">Ilmu Pengetahuan Umum Bahasa Pemrograman</h1>
+<p class="rv" style="--i:2">Selamat datang, calon programmer! Di sini kamu akan mengenal dunia kode dari nol: apa itu bahasa pemrograman, cara membuat web, sampai Python dan C++. Semua dimulai dari satu langkah kecil, jadi nikmati perjalanannya.</p>
+<div class="riddle rv" style="--i:3"><b>Teka-teki:</b><br>Aku bukan bahasa pemrograman sejati, tapi tanpa aku halaman web tak punya kerangka. Aku memakai tag seperti &lt;p&gt; dan &lt;h1&gt;. Singkatanku HyperText Markup Language. Siapa aku?</div>
+<div class="row rv" style="--i:4">
+<input id="pw" type="text" placeholder="Masukkan password..." autocomplete="off">
+<button class="btn" id="unlock">Buka materi</button>
+<button class="btn ghost" id="hint">Petunjuk</button></div>
+<div id="msg" class="rv" style="--i:5"></div>
+</div></section>
+
+<!-- 2 -->
+<section class="page"><div class="card">
+<h2 class="rv" style="--i:0">Apa itu Bahasa Pemrograman?</h2>
+<p class="rv" style="--i:1">Bahasa pemrograman adalah bahasa khusus yang dipakai manusia untuk memberi instruksi kepada komputer. Instruksi itu disebut kode. Komputer hanya mengerti angka 0 dan 1, jadi kode yang kita tulis diterjemahkan oleh compiler atau interpreter.</p>
+<h3 class="rv" style="--i:2">Jenis bahasa pemrograman</h3>
+<ul class="rv" style="--i:3"><li><b>Tingkat rendah</b>: dekat dengan mesin, cepat, sulit dibaca (Assembly).</li><li><b>Tingkat tinggi</b>: mudah dibaca manusia (Python, JavaScript, Java).</li><li><b>Compiled</b>: diterjemahkan sekaligus sebelum dijalankan (C, C++).</li><li><b>Interpreted</b>: diterjemahkan baris demi baris saat dijalankan (Python, JavaScript).</li></ul>
+<h3 class="rv" style="--i:4">Apa yang harus dipelajari?</h3>
+<div class="grid rv" style="--i:5">
+<div class="box"><h3>Logika &amp; algoritma</h3><p>Cara berpikir menyelesaikan masalah langkah demi langkah.</p></div>
+<div class="box"><h3>Sintaks dasar</h3><p>Aturan penulisan kode dari bahasa yang kamu pilih.</p></div>
+<div class="box"><h3>Praktik rutin</h3><p>Buat proyek kecil setiap hari, karena kode dipelajari dengan menulisnya.</p></div></div>
+</div></section>
+
+<!-- 3 -->
+<section class="page"><div class="card">
+<h2 class="rv" style="--i:0">Cara Membuat HTML, CSS &amp; JavaScript</h2>
+<p class="rv" style="--i:1">Tiga bahasa ini membentuk semua halaman web. HTML adalah kerangka, CSS adalah tampilan, JavaScript adalah perilaku. Kamu cukup memakai Notepad dan browser.</p>
+<h3 class="rv" style="--i:2">1. HTML: struktur</h3>
+<pre class="rv" style="--i:3">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1 id="judul"&gt;Halo Dunia&lt;/h1&gt;
+    &lt;button onclick="sapa()"&gt;Klik&lt;/button&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<h3 class="rv" style="--i:4">2. CSS: tampilan</h3>
+<pre class="rv" style="--i:5">h1 {
+  color: teal;
+  font-size: 40px;
+}</pre>
+<h3 class="rv" style="--i:6">3. JavaScript: perilaku</h3>
+<pre class="rv" style="--i:7">function sapa() {
+  document.getElementById("judul").textContent = "Halo, Programmer!";
+}</pre>
+<p class="rv" style="--i:8"><b>Langkah:</b> simpan file dengan akhiran <code>.html</code>, lalu buka di browser. Ubah kode, simpan, dan muat ulang halaman untuk melihat hasilnya.</p>
+</div></section>
+
+<!-- 4 -->
+<section class="page"><div class="card">
+<h2 class="rv" style="--i:0">Materi Penting untuk Pemula</h2>
+<div class="grid">
+<div class="box rv" style="--i:1"><h3>Variabel &amp; tipe data</h3><p>Wadah penyimpan nilai: angka, teks, true/false.</p><pre>nama = "Fvy"
+umur = 17</pre></div>
+<div class="box rv" style="--i:2"><h3>Percabangan</h3><p>Program mengambil keputusan dengan if / else.</p><pre>if nilai &gt;= 75:
+    print("Lulus")</pre></div>
+<div class="box rv" style="--i:3"><h3>Perulangan</h3><p>Mengulang perintah tanpa menulis ulang.</p><pre>for i in range(3):
+    print(i)</pre></div>
+<div class="box rv" style="--i:4"><h3>Fungsi</h3><p>Blok kode yang bisa dipakai berulang kali.</p><pre>def sapa(n):
+    return "Hai " + n</pre></div>
+<div class="box rv" style="--i:5"><h3>Array / list</h3><p>Menyimpan banyak data dalam satu variabel.</p><pre>buah = ["apel", "jeruk"]</pre></div>
+<div class="box rv" style="--i:6"><h3>Debugging &amp; Git</h3><p>Mencari dan memperbaiki error, serta menyimpan riwayat perubahan kode dengan Git.</p></div></div>
+</div></section>
+
+<!-- 5 -->
+<section class="page"><div class="card">
+<h2 class="rv" style="--i:0">Bahasa Pemrograman Populer</h2>
+<div class="grid">
+<div class="box rv" style="--i:1"><h3>Python</h3><p>Sintaks paling mudah. Cocok untuk pemula, data, dan AI.</p><pre>print("Halo Dunia")</pre></div>
+<div class="box rv" style="--i:2"><h3>C++</h3><p>Sangat cepat. Dipakai untuk game engine dan sistem.</p><pre>#include &lt;iostream&gt;
+int main(){
+  std::cout &lt;&lt; "Halo";
+}</pre></div>
+<div class="box rv" style="--i:3"><h3>Java</h3><p>Dipakai untuk aplikasi Android dan sistem perusahaan.</p><pre>System.out.println("Halo");</pre></div>
+<div class="box rv" style="--i:4"><h3>PHP</h3><p>Bahasa sisi server untuk membuat website dinamis.</p><pre>&lt;?php echo "Halo"; ?&gt;</pre></div>
+<div class="box rv" style="--i:5"><h3>SQL</h3><p>Bahasa untuk mengelola dan mengambil data dari database.</p><pre>SELECT * FROM siswa;</pre></div>
+<div class="box rv" style="--i:6"><h3>Kotlin &amp; Dart</h3><p>Dipakai untuk membuat aplikasi mobile Android dan Flutter.</p></div></div>
+</div></section>
+
+<!-- 6 -->
+<section class="page"><div class="card">
+<h2 class="rv" style="--i:0">Kesimpulan</h2>
+<p class="rv" style="--i:1">Bahasa pemrograman adalah alat untuk memberi perintah kepada komputer. Tidak ada bahasa yang paling hebat. Pilihlah sesuai tujuanmu.</p>
+<ul class="rv" style="--i:2">
+<li>Web: HTML untuk struktur, CSS untuk tampilan, JavaScript untuk interaksi.</li>
+<li>Dasar yang wajib dikuasai: variabel, percabangan, perulangan, fungsi, dan debugging.</li>
+<li>Python cocok untuk awal belajar, C++ untuk performa, Java dan Kotlin untuk Android, SQL untuk data.</li>
+<li>Kunci utamanya adalah logika berpikir dan latihan yang konsisten.</li></ul>
+<div class="riddle rv" style="--i:3">Mulai dari satu proyek kecil hari ini: sebuah kalkulator, daftar tugas, atau halaman profil. Error itu normal, dan setiap error mengajarkan sesuatu.</div>
+</div></section>
+
+<!-- 7 -->
+<section class="page"><div class="card center">
+<h2 class="rv" style="--i:0">Terima Kasih!</h2>
+<p class="rv" style="--i:1">Terima kasih sudah menyelesaikan Materi 1. Terus belajar, terus coba, dan jangan takut salah. Sampai jumpa di materi berikutnya.</p>
+<div class="contact rv" style="--i:2">
+<div>Developer: Fvy_Zuufly</div>
+<div>Instagram: Fvy_Zuufly</div>
+<div>No HP: 082229916429</div></div>
+<div class="row rv" style="--i:3;justify-content:center;margin-top:22px"><button class="btn" onclick="go(0)">Kembali ke awal</button></div>
+</div></section>
+</main>
+
+<nav>
+<button class="btn ghost" id="prev" disabled>Kembali</button>
+<div class="dots" id="dots"></div>
+<button class="btn" id="next" disabled>Lanjut</button>
+</nav>
+
+<script>
+// Hujan kode
+const cv=document.getElementById('rain'),cx=cv.getContext('2d');
+const ch='01{}<>/;=()[]$#+*&|FZ'.split('');let cols,drops;
+function size(){cv.width=innerWidth;cv.height=innerHeight;cols=Math.floor(cv.width/18);drops=Array.from({length:cols},()=>Math.random()*-50)}
+size();addEventListener('resize',size);
+setInterval(()=>{cx.fillStyle='rgba(5,8,22,.12)';cx.fillRect(0,0,cv.width,cv.height);cx.font='15px Fira Code, monospace';
+drops.forEach((y,i)=>{cx.fillStyle=Math.random()>.96?'#ff4fa3':'#00f5c8';cx.fillText(ch[Math.random()*ch.length|0],i*18,y*18);
+drops[i]=y*18>cv.height&&Math.random()>.975?0:y+1})},60);
+
+// Teks mengetik
+const t='> console.log("Selamat datang, Programmer!");';let k=0;const ty=document.getElementById('typed');ty.classList.add('cur');
+(function type(){ty.textContent=t.slice(0,k++);if(k<=t.length)setTimeout(type,45)})();
+
+// Navigasi halaman
+const pg=[...document.querySelectorAll('.page')],dots=document.getElementById('dots'),prev=document.getElementById('prev'),next=document.getElementById('next');
+let cur=0,open=false;
+pg.forEach((_,i)=>{const d=document.createElement('b');d.onclick=()=>{if(open)go(i)};dots.appendChild(d)});
+function go(n){if(n<0||n>=pg.length||(n>0&&!open))return;cur=n;
+pg.forEach((p,i)=>{p.classList.toggle('active',i===n);p.classList.toggle('before',i<n);if(i===n)p.scrollTop=0});
+[...dots.children].forEach((d,i)=>d.classList.toggle('on',i===n));
+prev.disabled=n===0||!open;next.disabled=!open||n===pg.length-1}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+go(0);
+
+// Efek riak pada tombol
+document.addEventListener('click',e=>{const b=e.target.closest('.btn');if(!b)return;const r=b.getBoundingClientRect(),s=document.createElement('span');
+s.className='rip';s.style.cssText=`width:40px;height:40px;left:${e.clientX-r.left-20}px;top:${e.clientY-r.top-20}px`;b.appendChild(s);setTimeout(()=>s.remove(),600)});
+
+// Password
+const pw=document.getElementById('pw'),msg=document.getElementById('msg');
+function check(){
+if(pw.value.trim().toLowerCase()==='html'){open=true;msg.className='ok';msg.textContent='> Akses diterima. Membuka materi...';
+setTimeout(()=>go(1),900)}
+else{msg.className='bad';msg.textContent='> Password salah. Coba lagi atau klik Petunjuk.';
+pw.classList.remove('shake');void pw.offsetWidth;pw.classList.add('shake')}}
+document.getElementById('unlock').onclick=check;
+pw.addEventListener('keydown',e=>{if(e.key==='Enter')check()});
+document.getElementById('hint').onclick=()=>{msg.className='';msg.textContent='> Petunjuk: jawabannya 4 huruf, dipakai untuk membuat kerangka halaman web.'};
+</script>
+</body>
+</html>
